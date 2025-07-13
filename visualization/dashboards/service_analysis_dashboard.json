@@ -1,0 +1,576 @@
+{
+  "DashboardId": "cost-optimization-service-analysis",
+  "Name": "Service Cost Analysis Dashboard",
+  "Definition": {
+    "DataSetIdentifierDeclarations": [
+      {
+        "DataSetIdentifier": "cost-data",
+        "DataSetArn": "arn:aws:quicksight:us-east-1:ACCOUNT_ID:dataset/cost-data-dataset"
+      }
+    ],
+    "Sheets": [
+      {
+        "SheetId": "service-analysis",
+        "Name": "Service Analysis",
+        "Visuals": [
+          {
+            "TableVisual": {
+              "VisualId": "service-cost-table",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "PlainText": "Service Cost Breakdown"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "PlainText": "Detailed cost analysis by AWS service"
+                }
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "TableAggregatedFieldWells": {
+                    "GroupBy": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "service_name",
+                          "Column": {
+                            "DataSetIdentifier": "cost-data",
+                            "ColumnName": "service_name"
+                          }
+                        }
+                      },
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "region",
+                          "Column": {
+                            "DataSetIdentifier": "cost-data",
+                            "ColumnName": "region"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "MeasureField": {
+                          "FieldId": "total_cost",
+                          "Column": {
+                            "DataSetIdentifier": "cost-data",
+                            "ColumnName": "cost_amount"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "SUM"
+                          }
+                        }
+                      },
+                      {
+                        "MeasureField": {
+                          "FieldId": "avg_daily_cost",
+                          "Column": {
+                            "DataSetIdentifier": "cost-data",
+                            "ColumnName": "cost_amount"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "AVERAGE"
+                          }
+                        }
+                      },
+                      {
+                        "MeasureField": {
+                          "FieldId": "total_usage",
+                          "Column": {
+                            "DataSetIdentifier": "cost-data",
+                            "ColumnName": "usage_quantity"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "SUM"
+                          }
+                        }
+                      },
+                      {
+                        "MeasureField": {
+                          "FieldId": "avg_cost_per_unit",
+                          "Column": {
+                            "DataSetIdentifier": "cost-data",
+                            "ColumnName": "cost_per_unit"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "AVERAGE"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {
+                  "RowSort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "total_cost",
+                        "Direction": "DESC"
+                      }
+                    }
+                  ]
+                },
+                "TableOptions": {
+                  "CellStyle": {
+                    "Height": 25
+                  },
+                  "HeaderStyle": {
+                    "Height": 25,
+                    "TextWrap": "WRAP"
+                  },
+                  "RowAlternateColorOptions": {
+                    "Status": "ENABLED"
+                  }
+                },
+                "FieldOptions": {
+                  "SelectedFieldOptions": [
+                    {
+                      "FieldId": "service_name",
+                      "Width": "200px",
+                      "CustomLabel": "Service"
+                    },
+                    {
+                      "FieldId": "region",
+                      "Width": "120px",
+                      "CustomLabel": "Region"
+                    },
+                    {
+                      "FieldId": "total_cost",
+                      "Width": "120px",
+                      "CustomLabel": "Total Cost"
+                    },
+                    {
+                      "FieldId": "avg_daily_cost",
+                      "Width": "120px",
+                      "CustomLabel": "Avg Daily Cost"
+                    },
+                    {
+                      "FieldId": "total_usage",
+                      "Width": "120px",
+                      "CustomLabel": "Total Usage"
+                    },
+                    {
+                      "FieldId": "avg_cost_per_unit",
+                      "Width": "120px",
+                      "CustomLabel": "Cost per Unit"
+                    }
+                  ],
+                  "Order": [
+                    "service_name",
+                    "region",
+                    "total_cost",
+                    "avg_daily_cost",
+                    "total_usage",
+                    "avg_cost_per_unit"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "BarChartVisual": {
+              "VisualId": "top-services-chart",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "PlainText": "Top 10 Services by Cost"
+                }
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "BarChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "service_name",
+                          "Column": {
+                            "DataSetIdentifier": "cost-data",
+                            "ColumnName": "service_short"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "MeasureField": {
+                          "FieldId": "service_cost",
+                          "Column": {
+                            "DataSetIdentifier": "cost-data",
+                            "ColumnName": "cost_amount"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "SUM"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {
+                  "CategorySort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "service_cost",
+                        "Direction": "DESC"
+                      }
+                    }
+                  ]
+                },
+                "CategoryAxis": {
+                  "ScrollbarOptions": {
+                    "Visibility": "HIDDEN"
+                  }
+                },
+                "ValueAxis": {
+                  "ScrollbarOptions": {
+                    "Visibility": "HIDDEN"
+                  }
+                },
+                "Legend": {
+                  "Visibility": "HIDDEN"
+                },
+                "DataLabels": {
+                  "Visibility": "VISIBLE",
+                  "CategoryLabelVisibility": "HIDDEN",
+                  "MeasureLabelVisibility": "VISIBLE"
+                },
+                "Orientation": "HORIZONTAL"
+              }
+            }
+          },
+          {
+            "LineChartVisual": {
+              "VisualId": "service-trend-chart",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "PlainText": "Service Cost Trends"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "PlainText": "Daily cost trends by service"
+                }
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "LineChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "DateDimensionField": {
+                          "FieldId": "date",
+                          "Column": {
+                            "DataSetIdentifier": "cost-data",
+                            "ColumnName": "date"
+                          },
+                          "DateGranularity": "DAY"
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "MeasureField": {
+                          "FieldId": "daily_cost",
+                          "Column": {
+                            "DataSetIdentifier": "cost-data",
+                            "ColumnName": "cost_amount"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "SUM"
+                          }
+                        }
+                      }
+                    ],
+                    "Colors": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "service_color",
+                          "Column": {
+                            "DataSetIdentifier": "cost-data",
+                            "ColumnName": "service_short"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {
+                  "CategorySort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "date",
+                        "Direction": "ASC"
+                      }
+                    }
+                  ]
+                },
+                "XAxisDisplayOptions": {
+                  "AxisLineVisibility": "VISIBLE",
+                  "GridLineVisibility": "HIDDEN"
+                },
+                "PrimaryYAxisDisplayOptions": {
+                  "AxisLineVisibility": "VISIBLE",
+                  "GridLineVisibility": "VISIBLE"
+                },
+                "Legend": {
+                  "Visibility": "VISIBLE",
+                  "Position": "RIGHT"
+                },
+                "DataLabels": {
+                  "Visibility": "HIDDEN"
+                }
+              }
+            }
+          },
+          {
+            "HeatMapVisual": {
+              "VisualId": "service-region-heatmap",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "PlainText": "Service Cost by Region"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "PlainText": "Heat map showing cost distribution"
+                }
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "HeatMapAggregatedFieldWells": {
+                    "Rows": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "service_name",
+                          "Column": {
+                            "DataSetIdentifier": "cost-data",
+                            "ColumnName": "service_short"
+                          }
+                        }
+                      }
+                    ],
+                    "Columns": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "region",
+                          "Column": {
+                            "DataSetIdentifier": "cost-data",
+                            "ColumnName": "region"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "MeasureField": {
+                          "FieldId": "cost_value",
+                          "Column": {
+                            "DataSetIdentifier": "cost-data",
+                            "ColumnName": "cost_amount"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "SUM"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {
+                  "HeatMapRowSort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "cost_value",
+                        "Direction": "DESC"
+                      }
+                    }
+                  ],
+                  "HeatMapColumnSort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "cost_value",
+                        "Direction": "DESC"
+                      }
+                    }
+                  ]
+                },
+                "ColorScale": {
+                  "ColorFillType": "GRADIENT",
+                  "Colors": [
+                    {
+                      "Color": "#FFFFFF"
+                    },
+                    {
+                      "Color": "#FF6B6B"
+                    }
+                  ]
+                },
+                "Legend": {
+                  "Visibility": "VISIBLE",
+                  "Position": "BOTTOM"
+                },
+                "DataLabels": {
+                  "Visibility": "VISIBLE"
+                }
+              }
+            }
+          }
+        ],
+        "Layouts": [
+          {
+            "Configuration": {
+              "GridLayout": {
+                "Elements": [
+                  {
+                    "ElementId": "service-cost-table",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 36,
+                    "RowIndex": 0,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "top-services-chart",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 18,
+                    "RowIndex": 12,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "service-trend-chart",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 18,
+                    "ColumnSpan": 18,
+                    "RowIndex": 12,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "service-region-heatmap",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 36,
+                    "RowIndex": 24,
+                    "RowSpan": 12
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "FilterControls": [
+          {
+            "Dropdown": {
+              "FilterControlId": "service-filter",
+              "Title": "Service Filter",
+              "SourceFilterId": "service-name-filter",
+              "DisplayOptions": {
+                "SelectAllOptions": {
+                  "Visibility": "VISIBLE"
+                },
+                "TitleOptions": {
+                  "Visibility": "VISIBLE"
+                }
+              },
+              "Type": "MULTI_SELECT"
+            }
+          },
+          {
+            "Dropdown": {
+              "FilterControlId": "region-filter",
+              "Title": "Region Filter",
+              "SourceFilterId": "region-name-filter",
+              "DisplayOptions": {
+                "SelectAllOptions": {
+                  "Visibility": "VISIBLE"
+                },
+                "TitleOptions": {
+                  "Visibility": "VISIBLE"
+                }
+              },
+              "Type": "MULTI_SELECT"
+            }
+          }
+        ]
+      }
+    ],
+    "FilterGroups": [
+      {
+        "FilterGroupId": "service-filter-group",
+        "Filters": [
+          {
+            "CategoryFilter": {
+              "FilterId": "service-name-filter",
+              "Column": {
+                "DataSetIdentifier": "cost-data",
+                "ColumnName": "service_name"
+              },
+              "Configuration": {
+                "FilterListConfiguration": {
+                  "MatchOperator": "CONTAINS"
+                }
+              }
+            }
+          },
+          {
+            "CategoryFilter": {
+              "FilterId": "region-name-filter",
+              "Column": {
+                "DataSetIdentifier": "cost-data",
+                "ColumnName": "region"
+              },
+              "Configuration": {
+                "FilterListConfiguration": {
+                  "MatchOperator": "CONTAINS"
+                }
+              }
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "service-analysis",
+                "Scope": "ALL_VISUALS"
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "ALL_DATASETS"
+      }
+    ]
+  },
+  "Permissions": [
+    {
+      "Principal": "arn:aws:quicksight:us-east-1:ACCOUNT_ID:user/default/quicksight-user",
+      "Actions": [
+        "quicksight:DescribeDashboard",
+        "quicksight:ListDashboardVersions",
+        "quicksight:UpdateDashboardPermissions",
+        "quicksight:QueryDashboard",
+        "quicksight:UpdateDashboard",
+        "quicksight:DeleteDashboard",
+        "quicksight:DescribeDashboardPermissions",
+        "quicksight:UpdateDashboardPublishedVersion"
+      ]
+    }
+  ],
+  "Tags": [
+    {
+      "Key": "Project",
+      "Value": "CostOptimizationDashboard"
+    },
+    {
+      "Key": "DashboardType",
+      "Value": "ServiceAnalysis"
+    }
+  ]
+}

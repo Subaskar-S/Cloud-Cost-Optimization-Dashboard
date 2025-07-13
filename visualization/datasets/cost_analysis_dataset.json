@@ -1,0 +1,129 @@
+{
+  "DataSetId": "cost-analysis-dataset",
+  "Name": "Cost Analysis Dataset",
+  "PhysicalTableMap": {
+    "cost-analysis-table": {
+      "RelationalTable": {
+        "DataSourceArn": "arn:aws:quicksight:us-east-1:ACCOUNT_ID:datasource/dynamodb-cost-analysis",
+        "Catalog": "AwsDataCatalog",
+        "Schema": "default",
+        "Name": "cost-analysis",
+        "InputColumns": [
+          {
+            "Name": "analysis_type",
+            "Type": "STRING"
+          },
+          {
+            "Name": "period",
+            "Type": "STRING"
+          },
+          {
+            "Name": "total_cost",
+            "Type": "DECIMAL"
+          },
+          {
+            "Name": "service_breakdown",
+            "Type": "STRING"
+          },
+          {
+            "Name": "regional_breakdown",
+            "Type": "STRING"
+          },
+          {
+            "Name": "trends",
+            "Type": "STRING"
+          },
+          {
+            "Name": "recommendations",
+            "Type": "STRING"
+          },
+          {
+            "Name": "created_at",
+            "Type": "DATETIME"
+          }
+        ]
+      }
+    }
+  },
+  "LogicalTableMap": {
+    "cost-analysis-logical": {
+      "Alias": "CostAnalysis",
+      "DataTransforms": [
+        {
+          "ProjectOperation": {
+            "ProjectedColumns": [
+              "analysis_type",
+              "period",
+              "total_cost",
+              "service_breakdown",
+              "regional_breakdown",
+              "trends",
+              "created_at"
+            ]
+          }
+        },
+        {
+          "CreateColumnsOperation": {
+            "Columns": [
+              {
+                "ColumnName": "period_date",
+                "ColumnId": "period_date",
+                "Expression": "parseDate({period}, 'yyyy-MM-dd')"
+              },
+              {
+                "ColumnName": "analysis_month",
+                "ColumnId": "analysis_month",
+                "Expression": "truncDate('MM', parseDate({period}, 'yyyy-MM-dd'))"
+              },
+              {
+                "ColumnName": "analysis_year",
+                "ColumnId": "analysis_year",
+                "Expression": "truncDate('YYYY', parseDate({period}, 'yyyy-MM-dd'))"
+              }
+            ]
+          }
+        },
+        {
+          "FilterOperation": {
+            "ConditionExpression": "{total_cost} > 0"
+          }
+        }
+      ],
+      "Source": {
+        "PhysicalTableId": "cost-analysis-table"
+      }
+    }
+  },
+  "ImportMode": "DIRECT_QUERY",
+  "DataSetUsageConfiguration": {
+    "DisableUseAsDirectQuerySource": false,
+    "DisableUseAsImportedSource": true
+  },
+  "Permissions": [
+    {
+      "Principal": "arn:aws:quicksight:us-east-1:ACCOUNT_ID:user/default/quicksight-user",
+      "Actions": [
+        "quicksight:DescribeDataSet",
+        "quicksight:DescribeDataSetPermissions",
+        "quicksight:PassDataSet",
+        "quicksight:DescribeIngestion",
+        "quicksight:ListIngestions",
+        "quicksight:UpdateDataSet",
+        "quicksight:DeleteDataSet",
+        "quicksight:CreateIngestion",
+        "quicksight:CancelIngestion",
+        "quicksight:UpdateDataSetPermissions"
+      ]
+    }
+  ],
+  "Tags": [
+    {
+      "Key": "Project",
+      "Value": "CostOptimizationDashboard"
+    },
+    {
+      "Key": "Environment",
+      "Value": "Production"
+    }
+  ]
+}

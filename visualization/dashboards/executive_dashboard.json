@@ -1,0 +1,459 @@
+{
+  "DashboardId": "cost-optimization-executive-dashboard",
+  "Name": "Cost Optimization Executive Dashboard",
+  "Definition": {
+    "DataSetIdentifierDeclarations": [
+      {
+        "DataSetIdentifier": "cost-data",
+        "DataSetArn": "arn:aws:quicksight:us-east-1:ACCOUNT_ID:dataset/cost-data-dataset"
+      },
+      {
+        "DataSetIdentifier": "cost-analysis",
+        "DataSetArn": "arn:aws:quicksight:us-east-1:ACCOUNT_ID:dataset/cost-analysis-dataset"
+      }
+    ],
+    "Sheets": [
+      {
+        "SheetId": "executive-overview",
+        "Name": "Executive Overview",
+        "Visuals": [
+          {
+            "BarChartVisual": {
+              "VisualId": "monthly-cost-trend",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "PlainText": "Monthly Cost Trend"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "PlainText": "Total costs by month"
+                }
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "BarChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "DateDimensionField": {
+                          "FieldId": "month",
+                          "Column": {
+                            "DataSetIdentifier": "cost-data",
+                            "ColumnName": "month"
+                          },
+                          "DateGranularity": "MONTH"
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "MeasureField": {
+                          "FieldId": "total_cost",
+                          "Column": {
+                            "DataSetIdentifier": "cost-data",
+                            "ColumnName": "cost_amount"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "SUM"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {
+                  "CategorySort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "month",
+                        "Direction": "ASC"
+                      }
+                    }
+                  ]
+                },
+                "CategoryAxis": {
+                  "ScrollbarOptions": {
+                    "Visibility": "HIDDEN"
+                  }
+                },
+                "ValueAxis": {
+                  "ScrollbarOptions": {
+                    "Visibility": "HIDDEN"
+                  }
+                },
+                "Legend": {
+                  "Visibility": "HIDDEN"
+                },
+                "DataLabels": {
+                  "Visibility": "VISIBLE",
+                  "CategoryLabelVisibility": "HIDDEN",
+                  "MeasureLabelVisibility": "VISIBLE"
+                }
+              }
+            }
+          },
+          {
+            "PieChartVisual": {
+              "VisualId": "service-cost-breakdown",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "PlainText": "Cost by Service"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "PlainText": "Current month service breakdown"
+                }
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "PieChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "service_name",
+                          "Column": {
+                            "DataSetIdentifier": "cost-data",
+                            "ColumnName": "service_short"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "MeasureField": {
+                          "FieldId": "service_cost",
+                          "Column": {
+                            "DataSetIdentifier": "cost-data",
+                            "ColumnName": "cost_amount"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "SUM"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {
+                  "CategorySort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "service_cost",
+                        "Direction": "DESC"
+                      }
+                    }
+                  ]
+                },
+                "DonutOptions": {
+                  "ArcOptions": {
+                    "ArcThickness": "MEDIUM"
+                  }
+                },
+                "Legend": {
+                  "Visibility": "VISIBLE",
+                  "Position": "RIGHT"
+                },
+                "DataLabels": {
+                  "Visibility": "VISIBLE",
+                  "CategoryLabelVisibility": "HIDDEN",
+                  "MeasureLabelVisibility": "VISIBLE",
+                  "LabelContent": "PERCENT"
+                }
+              }
+            }
+          },
+          {
+            "KPIVisual": {
+              "VisualId": "total-monthly-cost",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "PlainText": "Current Month Total"
+                }
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "Values": [
+                    {
+                      "MeasureField": {
+                        "FieldId": "monthly_total",
+                        "Column": {
+                          "DataSetIdentifier": "cost-data",
+                          "ColumnName": "cost_amount"
+                        },
+                        "AggregationFunction": {
+                          "SimpleNumericalAggregation": "SUM"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "SortConfiguration": {},
+                "KPIOptions": {
+                  "Comparison": {
+                    "ComparisonMethod": "PERCENT_DIFFERENCE",
+                    "ComparisonFormat": {
+                      "NumberDisplayFormatConfiguration": {
+                        "NumberScale": "NONE",
+                        "NegativeValueConfiguration": {
+                          "DisplayMode": "NEGATIVE"
+                        },
+                        "DecimalPlacesConfiguration": {
+                          "DecimalPlaces": 1
+                        }
+                      }
+                    }
+                  },
+                  "PrimaryValueDisplayType": "ACTUAL",
+                  "ProgressBar": {
+                    "Visibility": "HIDDEN"
+                  },
+                  "SecondaryValueOptions": {
+                    "Visibility": "VISIBLE"
+                  },
+                  "Sparkline": {
+                    "Visibility": "HIDDEN"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "LineChartVisual": {
+              "VisualId": "daily-cost-trend",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "PlainText": "Daily Cost Trend (Last 30 Days)"
+                }
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "LineChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "DateDimensionField": {
+                          "FieldId": "date",
+                          "Column": {
+                            "DataSetIdentifier": "cost-data",
+                            "ColumnName": "date"
+                          },
+                          "DateGranularity": "DAY"
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "MeasureField": {
+                          "FieldId": "daily_cost",
+                          "Column": {
+                            "DataSetIdentifier": "cost-data",
+                            "ColumnName": "cost_amount"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "SUM"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {
+                  "CategorySort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "date",
+                        "Direction": "ASC"
+                      }
+                    }
+                  ]
+                },
+                "XAxisDisplayOptions": {
+                  "AxisLineVisibility": "VISIBLE",
+                  "GridLineVisibility": "HIDDEN",
+                  "DataOptions": {
+                    "DateAxisOptions": {
+                      "MissingDateVisibility": "HIDDEN"
+                    }
+                  },
+                  "ScrollbarOptions": {
+                    "Visibility": "HIDDEN"
+                  }
+                },
+                "PrimaryYAxisDisplayOptions": {
+                  "AxisLineVisibility": "VISIBLE",
+                  "GridLineVisibility": "VISIBLE",
+                  "ScrollbarOptions": {
+                    "Visibility": "HIDDEN"
+                  }
+                },
+                "Legend": {
+                  "Visibility": "HIDDEN"
+                },
+                "DataLabels": {
+                  "Visibility": "HIDDEN"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "date",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "daily_cost",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "Layouts": [
+          {
+            "Configuration": {
+              "GridLayout": {
+                "Elements": [
+                  {
+                    "ElementId": "total-monthly-cost",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 6,
+                    "RowIndex": 0,
+                    "RowSpan": 6
+                  },
+                  {
+                    "ElementId": "service-cost-breakdown",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 6,
+                    "ColumnSpan": 30,
+                    "RowIndex": 0,
+                    "RowSpan": 18
+                  },
+                  {
+                    "ElementId": "monthly-cost-trend",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 18,
+                    "RowIndex": 6,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "daily-cost-trend",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 18,
+                    "ColumnSpan": 18,
+                    "RowIndex": 6,
+                    "RowSpan": 12
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "FilterControls": [
+          {
+            "DateTimePicker": {
+              "FilterControlId": "date-filter",
+              "Title": "Date Range",
+              "SourceFilterId": "date-range-filter",
+              "DisplayOptions": {
+                "TitleOptions": {
+                  "Visibility": "VISIBLE",
+                  "FontConfiguration": {
+                    "FontSize": {
+                      "Relative": "MEDIUM"
+                    }
+                  }
+                }
+              },
+              "Type": "DATE_RANGE"
+            }
+          }
+        ]
+      }
+    ],
+    "FilterGroups": [
+      {
+        "FilterGroupId": "default-filter-group",
+        "Filters": [
+          {
+            "TimeRangeFilter": {
+              "FilterId": "date-range-filter",
+              "Column": {
+                "DataSetIdentifier": "cost-data",
+                "ColumnName": "timestamp"
+              },
+              "IncludeMinimum": true,
+              "IncludeMaximum": true,
+              "RangeMinimumValue": {
+                "StaticValue": "2024-01-01T00:00:00.000Z"
+              },
+              "RangeMaximumValue": {
+                "StaticValue": "2024-12-31T23:59:59.999Z"
+              },
+              "NullOption": "NON_NULLS_ONLY",
+              "ExcludePeriodConfiguration": {
+                "Amount": 0,
+                "Granularity": "DAY",
+                "Status": "DISABLED"
+              }
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "executive-overview",
+                "Scope": "ALL_VISUALS"
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "ALL_DATASETS"
+      }
+    ]
+  },
+  "Permissions": [
+    {
+      "Principal": "arn:aws:quicksight:us-east-1:ACCOUNT_ID:user/default/quicksight-user",
+      "Actions": [
+        "quicksight:DescribeDashboard",
+        "quicksight:ListDashboardVersions",
+        "quicksight:UpdateDashboardPermissions",
+        "quicksight:QueryDashboard",
+        "quicksight:UpdateDashboard",
+        "quicksight:DeleteDashboard",
+        "quicksight:DescribeDashboardPermissions",
+        "quicksight:UpdateDashboardPublishedVersion"
+      ]
+    }
+  ],
+  "Tags": [
+    {
+      "Key": "Project",
+      "Value": "CostOptimizationDashboard"
+    },
+    {
+      "Key": "DashboardType",
+      "Value": "Executive"
+    }
+  ]
+}

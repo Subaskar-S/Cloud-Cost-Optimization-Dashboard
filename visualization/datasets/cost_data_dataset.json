@@ -1,0 +1,159 @@
+{
+  "DataSetId": "cost-data-dataset",
+  "Name": "Cost Data Dataset",
+  "PhysicalTableMap": {
+    "cost-data-table": {
+      "RelationalTable": {
+        "DataSourceArn": "arn:aws:quicksight:us-east-1:ACCOUNT_ID:datasource/dynamodb-cost-data",
+        "Catalog": "AwsDataCatalog",
+        "Schema": "default",
+        "Name": "cost-data",
+        "InputColumns": [
+          {
+            "Name": "service_id",
+            "Type": "STRING"
+          },
+          {
+            "Name": "timestamp",
+            "Type": "DATETIME"
+          },
+          {
+            "Name": "service_name",
+            "Type": "STRING"
+          },
+          {
+            "Name": "region",
+            "Type": "STRING"
+          },
+          {
+            "Name": "cost_amount",
+            "Type": "DECIMAL"
+          },
+          {
+            "Name": "usage_quantity",
+            "Type": "DECIMAL"
+          },
+          {
+            "Name": "usage_unit",
+            "Type": "STRING"
+          },
+          {
+            "Name": "currency",
+            "Type": "STRING"
+          },
+          {
+            "Name": "tags",
+            "Type": "STRING"
+          },
+          {
+            "Name": "resource_id",
+            "Type": "STRING"
+          },
+          {
+            "Name": "collection_timestamp",
+            "Type": "DATETIME"
+          }
+        ]
+      }
+    }
+  },
+  "LogicalTableMap": {
+    "cost-data-logical": {
+      "Alias": "CostData",
+      "DataTransforms": [
+        {
+          "ProjectOperation": {
+            "ProjectedColumns": [
+              "service_id",
+              "timestamp",
+              "service_name",
+              "region",
+              "cost_amount",
+              "usage_quantity",
+              "usage_unit",
+              "currency",
+              "tags",
+              "resource_id"
+            ]
+          }
+        },
+        {
+          "CreateColumnsOperation": {
+            "Columns": [
+              {
+                "ColumnName": "date",
+                "ColumnId": "date",
+                "Expression": "truncDate('DD', {timestamp})"
+              },
+              {
+                "ColumnName": "month",
+                "ColumnId": "month",
+                "Expression": "truncDate('MM', {timestamp})"
+              },
+              {
+                "ColumnName": "year",
+                "ColumnId": "year",
+                "Expression": "truncDate('YYYY', {timestamp})"
+              },
+              {
+                "ColumnName": "service_short",
+                "ColumnId": "service_short",
+                "Expression": "split({service_name}, ' ', 1)"
+              },
+              {
+                "ColumnName": "cost_per_unit",
+                "ColumnId": "cost_per_unit",
+                "Expression": "ifelse({usage_quantity} > 0, {cost_amount} / {usage_quantity}, 0)"
+              }
+            ]
+          }
+        },
+        {
+          "FilterOperation": {
+            "ConditionExpression": "{cost_amount} > 0"
+          }
+        }
+      ],
+      "Source": {
+        "PhysicalTableId": "cost-data-table"
+      }
+    }
+  },
+  "ImportMode": "DIRECT_QUERY",
+  "DataSetUsageConfiguration": {
+    "DisableUseAsDirectQuerySource": false,
+    "DisableUseAsImportedSource": true
+  },
+  "Permissions": [
+    {
+      "Principal": "arn:aws:quicksight:us-east-1:ACCOUNT_ID:user/default/quicksight-user",
+      "Actions": [
+        "quicksight:DescribeDataSet",
+        "quicksight:DescribeDataSetPermissions",
+        "quicksight:PassDataSet",
+        "quicksight:DescribeIngestion",
+        "quicksight:ListIngestions",
+        "quicksight:UpdateDataSet",
+        "quicksight:DeleteDataSet",
+        "quicksight:CreateIngestion",
+        "quicksight:CancelIngestion",
+        "quicksight:UpdateDataSetPermissions"
+      ]
+    }
+  ],
+  "RowLevelPermissionDataSet": {
+    "Namespace": "default",
+    "Arn": "arn:aws:quicksight:us-east-1:ACCOUNT_ID:dataset/cost-data-dataset",
+    "PermissionPolicy": "GRANT_ACCESS"
+  },
+  "Tags": [
+    {
+      "Key": "Project",
+      "Value": "CostOptimizationDashboard"
+    },
+    {
+      "Key": "Environment",
+      "Value": "Production"
+    }
+  ]
+}

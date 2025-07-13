@@ -1,0 +1,298 @@
+{
+  "overall_budget": {
+    "monthly_limit": 5000,
+    "quarterly_limit": 14000,
+    "annual_limit": 50000,
+    "currency": "USD",
+    "alerts": {
+      "50_percent": true,
+      "80_percent": true,
+      "100_percent": true,
+      "forecasted_100_percent": true
+    }
+  },
+  "service_budgets": {
+    "EC2": {
+      "monthly_limit": 2000,
+      "description": "Compute instances and related resources",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "S3": {
+      "monthly_limit": 500,
+      "description": "Object storage and data transfer",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "RDS": {
+      "monthly_limit": 800,
+      "description": "Managed database services",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "Lambda": {
+      "monthly_limit": 300,
+      "description": "Serverless compute functions",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "CloudWatch": {
+      "monthly_limit": 200,
+      "description": "Monitoring and logging services",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "DynamoDB": {
+      "monthly_limit": 400,
+      "description": "NoSQL database service",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "ELB": {
+      "monthly_limit": 150,
+      "description": "Load balancing services",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "CloudFront": {
+      "monthly_limit": 250,
+      "description": "Content delivery network",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "Route53": {
+      "monthly_limit": 50,
+      "description": "DNS and domain services",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "SNS": {
+      "monthly_limit": 25,
+      "description": "Notification services",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "SQS": {
+      "monthly_limit": 30,
+      "description": "Message queuing service",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "API Gateway": {
+      "monthly_limit": 100,
+      "description": "API management service",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    }
+  },
+  "regional_budgets": {
+    "us-east-1": {
+      "monthly_limit": 2500,
+      "description": "Primary region - North Virginia",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "us-west-2": {
+      "monthly_limit": 1500,
+      "description": "Secondary region - Oregon",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "eu-west-1": {
+      "monthly_limit": 800,
+      "description": "European region - Ireland",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "ap-southeast-1": {
+      "monthly_limit": 200,
+      "description": "Asia Pacific - Singapore",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    }
+  },
+  "environment_budgets": {
+    "production": {
+      "monthly_limit": 3000,
+      "description": "Production environment resources",
+      "alerts": {
+        "50_percent": true,
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "staging": {
+      "monthly_limit": 1000,
+      "description": "Staging environment resources",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "development": {
+      "monthly_limit": 500,
+      "description": "Development environment resources",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "testing": {
+      "monthly_limit": 300,
+      "description": "Testing environment resources",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    }
+  },
+  "team_budgets": {
+    "backend": {
+      "monthly_limit": 1800,
+      "description": "Backend development team resources",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "frontend": {
+      "monthly_limit": 800,
+      "description": "Frontend development team resources",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "data": {
+      "monthly_limit": 1200,
+      "description": "Data engineering team resources",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "devops": {
+      "monthly_limit": 1000,
+      "description": "DevOps team infrastructure resources",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "qa": {
+      "monthly_limit": 400,
+      "description": "Quality assurance team resources",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    }
+  },
+  "project_budgets": {
+    "web-application": {
+      "monthly_limit": 1500,
+      "description": "Main web application project",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "mobile-api": {
+      "monthly_limit": 1000,
+      "description": "Mobile application API backend",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "analytics-platform": {
+      "monthly_limit": 800,
+      "description": "Data analytics and reporting platform",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    },
+    "ml-pipeline": {
+      "monthly_limit": 600,
+      "description": "Machine learning pipeline infrastructure",
+      "alerts": {
+        "80_percent": true,
+        "100_percent": true
+      }
+    }
+  },
+  "budget_actions": {
+    "stop_instances": {
+      "enabled": false,
+      "threshold_percent": 100,
+      "target_tags": {
+        "Environment": ["development", "testing"]
+      }
+    },
+    "scale_down": {
+      "enabled": false,
+      "threshold_percent": 90,
+      "target_services": ["EC2", "RDS"]
+    },
+    "notifications": {
+      "enabled": true,
+      "threshold_percent": 80,
+      "recipients": [
+        "finance@company.com",
+        "devops@company.com"
+      ]
+    }
+  },
+  "forecasting": {
+    "enabled": true,
+    "lookback_days": 30,
+    "forecast_days": 30,
+    "confidence_level": 80
+  },
+  "cost_allocation": {
+    "tag_keys": [
+      "Environment",
+      "Team",
+      "Project",
+      "Owner",
+      "CostCenter"
+    ],
+    "untagged_resources": {
+      "budget_allocation": 200,
+      "alert_threshold": 100
+    }
+  }
+}

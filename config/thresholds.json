@@ -1,0 +1,217 @@
+{
+  "cost_thresholds": {
+    "daily": {
+      "warning": 100,
+      "critical": 200,
+      "emergency": 500
+    },
+    "weekly": {
+      "warning": 500,
+      "critical": 1000,
+      "emergency": 2000
+    },
+    "monthly": {
+      "warning": 2000,
+      "critical": 4000,
+      "emergency": 8000
+    }
+  },
+  "service_thresholds": {
+    "EC2": {
+      "daily": 50,
+      "weekly": 300,
+      "monthly": 1200
+    },
+    "S3": {
+      "daily": 20,
+      "weekly": 100,
+      "monthly": 400
+    },
+    "Lambda": {
+      "daily": 10,
+      "weekly": 50,
+      "monthly": 200
+    },
+    "RDS": {
+      "daily": 40,
+      "weekly": 250,
+      "monthly": 1000
+    },
+    "CloudWatch": {
+      "daily": 5,
+      "weekly": 25,
+      "monthly": 100
+    },
+    "DynamoDB": {
+      "daily": 15,
+      "weekly": 75,
+      "monthly": 300
+    },
+    "ELB": {
+      "daily": 8,
+      "weekly": 40,
+      "monthly": 160
+    },
+    "CloudFront": {
+      "daily": 12,
+      "weekly": 60,
+      "monthly": 240
+    },
+    "Route53": {
+      "daily": 2,
+      "weekly": 10,
+      "monthly": 40
+    },
+    "SNS": {
+      "daily": 1,
+      "weekly": 5,
+      "monthly": 20
+    }
+  },
+  "regional_thresholds": {
+    "us-east-1": {
+      "daily": 60,
+      "monthly": 1500
+    },
+    "us-west-2": {
+      "daily": 40,
+      "monthly": 1000
+    },
+    "eu-west-1": {
+      "daily": 30,
+      "monthly": 750
+    },
+    "ap-southeast-1": {
+      "daily": 20,
+      "monthly": 500
+    }
+  },
+  "tag_based_thresholds": {
+    "Environment": {
+      "production": {
+        "daily": 80,
+        "monthly": 2000
+      },
+      "staging": {
+        "daily": 30,
+        "monthly": 600
+      },
+      "development": {
+        "daily": 20,
+        "monthly": 400
+      }
+    },
+    "Team": {
+      "backend": {
+        "daily": 50,
+        "monthly": 1200
+      },
+      "frontend": {
+        "daily": 25,
+        "monthly": 600
+      },
+      "data": {
+        "daily": 40,
+        "monthly": 1000
+      },
+      "devops": {
+        "daily": 35,
+        "monthly": 800
+      }
+    },
+    "Project": {
+      "web-app": {
+        "daily": 45,
+        "monthly": 1100
+      },
+      "mobile-api": {
+        "daily": 35,
+        "monthly": 850
+      },
+      "analytics": {
+        "daily": 25,
+        "monthly": 600
+      }
+    }
+  },
+  "anomaly_detection": {
+    "enabled": true,
+    "sensitivity": "medium",
+    "lookback_days": 14,
+    "threshold_multiplier": 2.0,
+    "minimum_cost_threshold": 5.0
+  },
+  "notification_settings": {
+    "email": {
+      "enabled": true,
+      "recipients": [
+        "devops@company.com",
+        "finance@company.com"
+      ],
+      "frequency": {
+        "warning": "immediate",
+        "critical": "immediate",
+        "emergency": "immediate",
+        "summary": "daily"
+      }
+    },
+    "slack": {
+      "enabled": true,
+      "webhook_url": "${SLACK_WEBHOOK_URL}",
+      "channels": {
+        "alerts": "#cost-alerts",
+        "reports": "#cost-reports"
+      },
+      "frequency": {
+        "warning": "immediate",
+        "critical": "immediate",
+        "emergency": "immediate"
+      }
+    },
+    "sms": {
+      "enabled": false,
+      "phone_numbers": [
+        "+1234567890"
+      ],
+      "frequency": {
+        "emergency": "immediate"
+      }
+    }
+  },
+  "reporting": {
+    "daily_summary": {
+      "enabled": true,
+      "time": "09:00",
+      "timezone": "UTC"
+    },
+    "weekly_summary": {
+      "enabled": true,
+      "day": "monday",
+      "time": "09:00",
+      "timezone": "UTC"
+    },
+    "monthly_summary": {
+      "enabled": true,
+      "day": 1,
+      "time": "09:00",
+      "timezone": "UTC"
+    }
+  },
+  "optimization_rules": {
+    "idle_resources": {
+      "ec2_cpu_threshold": 5.0,
+      "ec2_network_threshold": 1000000,
+      "rds_connection_threshold": 5,
+      "lambda_invocation_threshold": 10
+    },
+    "rightsizing": {
+      "ec2_cpu_target": 70.0,
+      "rds_cpu_target": 70.0,
+      "memory_target": 80.0
+    },
+    "reserved_instances": {
+      "utilization_threshold": 80.0,
+      "recommendation_lookback_days": 30
+    }
+  }
+}
