@@ -164,25 +164,90 @@ python -m pytest tests/integration/
 - [User Guide](docs/user_guide.md)
 - [API Reference](docs/api_reference.md)
 
+## 📜 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Submit a pull request
+We welcome contributions to improve the AWS Cost Optimization Dashboard! Here's how to get started:
 
-## 📄 License
+### 🔄 Development Workflow
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+1. **Fork the Repository**
+   ```bash
+   # Click the "Fork" button on GitHub or use GitHub CLI
+   gh repo fork Subaskar-S/aws-cost-optimization-dashboard
+   ```
 
-## 🆘 Support
+2. **Clone Your Fork**
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/aws-cost-optimization-dashboard.git
+   cd aws-cost-optimization-dashboard
+   ```
 
-For questions and support:
-- Create an issue in this repository
-- Check the documentation in the `docs/` folder
-- Review the troubleshooting guide
+3. **Create a Feature Branch**
+   ```bash
+   # Use descriptive branch names
+   git checkout -b feature/add-azure-cost-support
+   git checkout -b fix/lambda-timeout-issue
+   git checkout -b docs/update-deployment-guide
+   ```
+
+4. **Make Your Changes**
+   - Follow the existing code style and patterns
+   - Add tests for new functionality
+   - Update documentation as needed
+   - Test your changes locally
+
+5. **Commit Your Changes**
+   ```bash
+   # Use clear, descriptive commit messages
+   git add .
+   git commit -m "Add Azure cost collection support with error handling"
+   git commit -m "Fix Lambda timeout in data processing for large datasets"
+   git commit -m "Update deployment guide with new IAM permissions"
+   ```
+
+6. **Push and Create Pull Request**
+   ```bash
+   git push origin feature/your-branch-name
+   # Then create a PR through GitHub UI
+   ```
+
+### 📋 Contribution Guidelines
+
+- **Code Quality**: Follow Python PEP 8 standards and existing patterns
+- **Testing**: Add unit tests for new features (`tests/unit/`)
+- **Documentation**: Update relevant docs in the `docs/` folder
+- **Security**: Never commit secrets or credentials
+- **Performance**: Consider impact on Lambda execution time and DynamoDB costs
+
+### 🐛 Bug Reports
+
+When reporting bugs, please include:
+- Steps to reproduce the issue
+- Expected vs actual behavior
+- AWS region and service versions
+- Relevant log snippets (sanitized)
+
+### 💡 Feature Requests
+
+For new features, please:
+- Check existing issues first
+- Describe the use case and business value
+- Consider implementation complexity
+- Discuss breaking changes
+
+## 👨‍💻 Made by
+
+**Subaskar_S**
+
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Subaskar-S)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/subaskar97)
 
 ---
+
+### 🌟 If this project helped you save money on AWS costs, please give it a star!
 
 **Built with ❤️ for cloud cost optimization**
